@@ -1,8 +1,10 @@
 FROM node:20
 
-WORKDIR ./app
+WORKDIR /app
 
-RUN npm install express cookieParser dotenv path
+COPY package*.json .
+
+RUN npm install
 
 COPY . .
 
