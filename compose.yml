@@ -1,0 +1,39 @@
+services:
+  frontend:
+    build:
+      context: frontend
+    ports: 
+      - 3000:3000
+    networks:
+      - react-express
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: backend
+    expose: 
+      - 3000
+    networks:
+      - express-mongo
+      - react-express
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongo    
+  mongo:
+    image: mongo:4.2.0
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+networks:
+  react-express:
+  express-mongo:
+volumes:
+  mongo_data:
