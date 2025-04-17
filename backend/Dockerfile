@@ -1,19 +1,13 @@
-FROM node:20 AS base
+FROM node:20-alpine
 
 WORKDIR /app
 
 COPY package*.json .
 
-RUN npm ci
+RUN npm install
 
 copy . .
 
-FROM node:20-alpine
+EXPOSE 5000
 
-WORKDIR /app
-
-COPY --from=base /app /app
-
-EXPOSE 3000
-
-CMD ["node","index.js"]
+CMD ["nodemon","index.js"]

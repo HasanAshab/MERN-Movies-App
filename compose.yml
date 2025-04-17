@@ -4,8 +4,6 @@ services:
       context: frontend
     ports: 
       - 3000:3000
-    networks:
-      - react-express
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -14,11 +12,8 @@ services:
   backend:
     build:
       context: backend
-    expose: 
-      - 3000
-    networks:
-      - express-mongo
-      - react-express
+    ports: 
+      - 5000:5000
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -28,12 +23,9 @@ services:
     image: mongo:4.2.0
     volumes:
       - mongo_data:/data/db
-    networks:
-      - express-mongo
     expose:
       - 27017
-networks:
-  react-express:
-  express-mongo:
+    ports:
+      - 27017:27017
 volumes:
   mongo_data:
