@@ -7,6 +7,8 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+    environment:
+      NODE_ENV: development
     depends_on:
       - backend
   backend:
@@ -17,6 +19,11 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo:27017/moviesApp
+      PORT: 5000
+      JWT_SECRET: alskdfjlkasdfjlksa23123asdlfk
     depends_on:
       - mongo    
   mongo:
